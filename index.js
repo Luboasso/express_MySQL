@@ -36,6 +36,16 @@ app.get("/createcategoriestable", (req, res) => {
     });
   });
 
+  app.get("/createcategoriesProductstable", (req, res) => {
+    let sql =
+      "CREATE TABLE categoriesProducts(id INT AUTO_INCREMENT,title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(id))";
+    db.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      res.send("CategoriesProducts table created...");
+    });
+  });
+
 app.listen(PORT, () => {
     console.log(`Servidor levantado en el puerto ${PORT}`);
 });
