@@ -2,12 +2,12 @@ const db = require("../config/database.js");
 
 const ProductController = {
     create(req, res) {
-      let product = { title: req.body.title, body: req.body.body };
-      let sql = "INSERT INTO posts SET ?";
+      let product = { name: req.body.name, price: req.body.price, description: req.bdy.description };
+      let sql = "INSERT INTO products SET ?";
       db.query(sql, product, (err, result) => {
         if (err) throw err;
         console.log(result);
-        res.send("Post added...");
+        res.send("Product added...");
       });
     },
     getAll(req, res) {
@@ -24,6 +24,7 @@ const ProductController = {
         res.send(result);
       });
     },
+
 //     update(req, res) {
 //       let newTitle = req.body.title;
 //       let sql = `UPDATE posts SET title = '${newTitle}' WHERE id = ${req.params.id}`;

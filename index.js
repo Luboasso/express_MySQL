@@ -18,7 +18,7 @@ app.get("/createdb", (req, res) => {
 
 app.get("/createproducttable", (req, res) => {
   let sql =
-    "CREATE TABLE products(id INT AUTO_INCREMENT,title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(id))";
+    "CREATE TABLE products(id INT AUTO_INCREMENT,name VARCHAR(255), price FLOAT, PRIMARY KEY(id), description VARCHAR (255))";
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
@@ -28,7 +28,7 @@ app.get("/createproducttable", (req, res) => {
 
 app.get("/createcategoriestable", (req, res) => {
     let sql =
-      "CREATE TABLE categories(id INT AUTO_INCREMENT,title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(id))";
+      "CREATE TABLE categories(id INT AUTO_INCREMENT,name VARCHAR(255), PRIMARY KEY(id))";
     db.query(sql, (err, result) => {
       if (err) throw err;
       console.log(result);
@@ -38,7 +38,7 @@ app.get("/createcategoriestable", (req, res) => {
 
   app.get("/createcategoriesProductstable", (req, res) => {
     let sql =
-      "CREATE TABLE categoriesProducts(id INT AUTO_INCREMENT,title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(id))";
+      "CREATE TABLE categoriesProducts(id INT AUTO_INCREMENT, product_id INT, category_id INT, PRIMARY KEY(id),FOREIGN KEY(product_id) REFERENCES products(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
     db.query(sql, (err, result) => {
       if (err) throw err;
       console.log(result);

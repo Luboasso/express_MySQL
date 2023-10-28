@@ -4,5 +4,5 @@ const db = require('../config/database.js');
 const ProductController = require('../controllers/ProductController.js');
 
 
-// router.post("/", ProductController.create);
+router.post("/createproduct", ProductController.create);
 module.exports = router;
