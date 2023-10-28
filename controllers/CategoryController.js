@@ -10,6 +10,15 @@ const CategoryController = {
         res.send("category added...");
       });
     },
+
+    update(req, res) {
+        let newCategoryName = req.body.name;
+        let sql = `UPDATE categories SET name = '${newCategoryName}' WHERE id = ${req.params.id}`;
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send("Category name updated...");
+        });
+      },
  };
   
   module.exports = CategoryController;

@@ -19,7 +19,17 @@ const ProductController = {
         console.log(result);
         res.send("Category assigned...");
       });
-    }
+    },
+
+    update(req, res) {
+        let updatedProduct = req.body;
+        let sql = `UPDATE products SET ? WHERE id = ${req.params.id}`;
+        db.query(sql, updatedProduct,(err, result) => {
+          if (err) throw err;
+          console.log(result);
+          res.send("Product updated...");
+        });
+      },
 };
   
   module.exports = ProductController;
