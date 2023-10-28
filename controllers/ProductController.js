@@ -2,7 +2,7 @@ const db = require("../config/database.js");
 
 const ProductController = {
     create(req, res) {
-      let product = { name: req.body.name, price: req.body.price, description: req.body.description };
+      let product = { product_name: req.body.product_name, price: req.body.price, description: req.body.description };
       let sql = "INSERT INTO products SET ?";
       db.query(sql, product, (err, result) => {
         if (err) throw err;
@@ -28,6 +28,46 @@ const ProductController = {
           if (err) throw err;
           console.log(result);
           res.send("Product updated...");
+        });
+      },
+
+      getAll(req, res) {
+        let sql = "SELECT * FROM products";
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+        });
+      },
+
+      getAllCategoriesProducts(req, res) {
+        let sql = "SELECT product_name, category_name FROM categoriesproducts INNER JOIN categories ON categories.id = categoriesproducts.category_id INNER JOIN products ON products.id = categoriesproducts.product_id;";
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+        });
+      },
+
+      getById(req, res){
+        let sql = `SELECT * FROM products WHERE id = ${req.params.id}`;
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+        });
+      },
+
+      orderDesc(req, res){
+        let sql = "SELECT * FROM products ORDER BY id DESC";
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send(result);
+        });
+      },
+
+      getByName(req, res){
+        let sql = `SELECT * FROM products WHERE product_name = "${req.params.product_name}"`;
+        db.query(sql, (err, result) => {
+          if (err) throw err;
+          res.send(result);
         });
       },
 };
